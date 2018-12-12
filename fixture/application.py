@@ -1,14 +1,12 @@
 from selenium import webdriver
+from fixture.session import SessionHelper
 
 
 class Application:
     def __init__(self):
         self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(30)
-
-    def logout(self):
-        driver = self.driver
-        driver.find_element_by_link_text("Logout").click()
+        self.session = SessionHelper(self)
 
     def create_group(self, group):
         driver = self.driver
@@ -27,18 +25,6 @@ class Application:
         driver.find_element_by_name("group_footer").send_keys(group.footer)
         # submit group creation
         driver.find_element_by_name("submit").click()
-
-    def login(self, username, password):
-        driver = self.driver
-        driver.get("http://localhost/addressbook/delete.php?part=1;")
-        driver.find_element_by_name("user").click()
-        driver.find_element_by_name("user").clear()
-        driver.find_element_by_name("user").send_keys(username)
-        driver.find_element_by_name("pass").click()
-        driver.find_element_by_name("pass").clear()
-        driver.find_element_by_name("pass").send_keys(password)
-        driver.find_element_by_xpath(
-            "(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]").click()
 
     def destroy(self):
         self.driver.quit()
