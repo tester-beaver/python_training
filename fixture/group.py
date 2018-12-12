@@ -4,6 +4,7 @@ class GroupHelper:
 
     def create(self, group):
         driver = self.app.driver
+        self.open_groups_page()
         driver.find_element_by_link_text("groups").click()
         # init group creation
         driver.find_element_by_name("new").click()
@@ -19,3 +20,21 @@ class GroupHelper:
         driver.find_element_by_name("group_footer").send_keys(group.footer)
         # submit group creation
         driver.find_element_by_name("submit").click()
+        self.return_to_groups_page()
+
+    def delete_first_group(self):
+        driver = self.app.driver
+        self.open_groups_page()
+        # select first group
+        driver.find_element_by_name("selected[]").click()
+        # submit deletion
+        driver.find_element_by_name("delete").click()
+        self.return_to_groups_page()
+
+    def return_to_groups_page(self):
+        driver = self.app.driver
+        driver.find_element_by_link_text("group page").click()
+
+    def open_groups_page(self):
+        driver = self.app.driver
+        driver.find_element_by_link_text("groups").click()

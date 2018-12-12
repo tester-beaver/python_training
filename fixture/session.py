@@ -4,7 +4,7 @@ class SessionHelper:
 
     def login(self, username, password):
         driver = self.app.driver
-        driver.get("http://localhost/addressbook/delete.php?part=1;")
+        self.app.open_home_page()
         driver.find_element_by_name("user").click()
         driver.find_element_by_name("user").clear()
         driver.find_element_by_name("user").send_keys(username)
